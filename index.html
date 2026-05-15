@@ -2,34 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0a0a0a">
     <title>Baba — May 16</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        html, body {
+        html {
             height: 100%;
-            overflow: hidden;
+            font-size: 16px;
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background: #0a0a0a;
             color: #e8e0d4;
+            min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             position: relative;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Cinematic background with subtle gradient */
+        /* Cinematic background */
         .bg-layer {
             position: fixed;
             inset: 0;
@@ -41,10 +49,9 @@
                 #0a0a0a;
         }
 
-        /* Thin gold line accent at top */
-        .top-line {
+        /* Gold line accents */
+        .top-line, .bottom-line {
             position: fixed;
-            top: 0;
             left: 0;
             right: 0;
             height: 1px;
@@ -52,7 +59,10 @@
             z-index: 10;
         }
 
-        /* Ambient floating orbs */
+        .top-line { top: 0; }
+        .bottom-line { bottom: 0; background: linear-gradient(90deg, transparent 0%, rgba(184, 134, 11, 0.15) 50%, transparent 100%); }
+
+        /* Ambient orbs */
         .orb {
             position: fixed;
             border-radius: 50%;
@@ -60,11 +70,12 @@
             opacity: 0;
             animation: orbDrift 20s ease-in-out infinite;
             z-index: 0;
+            pointer-events: none;
         }
 
         .orb-1 {
-            width: 400px;
-            height: 400px;
+            width: min(400px, 60vw);
+            height: min(400px, 60vw);
             background: rgba(184, 134, 11, 0.06);
             top: -10%;
             left: 10%;
@@ -72,8 +83,8 @@
         }
 
         .orb-2 {
-            width: 300px;
-            height: 300px;
+            width: min(300px, 45vw);
+            height: min(300px, 45vw);
             background: rgba(139, 90, 43, 0.05);
             bottom: 10%;
             right: 15%;
@@ -81,8 +92,8 @@
         }
 
         .orb-3 {
-            width: 250px;
-            height: 250px;
+            width: min(250px, 38vw);
+            height: min(250px, 38vw);
             background: rgba(184, 134, 11, 0.04);
             top: 40%;
             right: -5%;
@@ -101,20 +112,26 @@
             position: relative;
             z-index: 2;
             text-align: center;
-            padding: 3rem;
+            padding: 2rem;
             max-width: 1000px;
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            min-height: 100dvh;
         }
 
-        /* Subtle brand mark */
+        /* Brand mark */
         .brand-mark {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 0.65rem;
+            font-size: clamp(0.55rem, 1.5vw, 0.65rem);
             font-weight: 400;
             letter-spacing: 0.5em;
             text-transform: uppercase;
             color: rgba(184, 134, 11, 0.5);
-            margin-bottom: 4rem;
+            margin-bottom: clamp(2.5rem, 6vh, 4rem);
             opacity: 0;
             animation: fadeUp 1.2s ease-out 0.3s forwards;
         }
@@ -122,7 +139,7 @@
         /* The name */
         .name {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(4rem, 12vw, 10rem);
+            font-size: clamp(3.5rem, 14vw, 10rem);
             font-weight: 300;
             letter-spacing: 0.15em;
             color: #e8e0d4;
@@ -154,12 +171,12 @@
         /* Date */
         .date {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            font-size: clamp(0.8rem, 2.5vw, 1.2rem);
             font-weight: 300;
             font-style: italic;
             color: rgba(232, 224, 212, 0.5);
             letter-spacing: 0.3em;
-            margin-bottom: 5rem;
+            margin-bottom: clamp(3rem, 8vh, 5rem);
             opacity: 0;
             animation: fadeUp 1.2s ease-out 1s forwards;
         }
@@ -169,57 +186,63 @@
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            gap: clamp(2rem, 5vw, 5rem);
-            margin-bottom: 5rem;
+            gap: clamp(1.2rem, 4vw, 5rem);
+            margin-bottom: clamp(3rem, 8vh, 5rem);
             opacity: 0;
             animation: fadeUp 1.2s ease-out 1.4s forwards;
+            flex-wrap: nowrap;
+            width: 100%;
+            max-width: 700px;
         }
 
         .unit {
             text-align: center;
-            min-width: clamp(60px, 12vw, 120px);
+            flex: 1;
+            min-width: 0;
         }
 
         .unit-value {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(2.2rem, 10vw, 6rem);
             font-weight: 300;
             color: #e8e0d4;
             line-height: 1;
             display: block;
             font-variant-numeric: tabular-nums;
+            white-space: nowrap;
         }
 
         .unit-label {
             font-family: 'Inter', sans-serif;
-            font-size: 0.6rem;
+            font-size: clamp(0.5rem, 1.8vw, 0.6rem);
             font-weight: 300;
             letter-spacing: 0.4em;
             text-transform: uppercase;
             color: rgba(184, 134, 11, 0.6);
-            margin-top: 0.8rem;
+            margin-top: clamp(0.5rem, 1.5vh, 0.8rem);
             display: block;
         }
 
         .unit-divider {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2rem, 4vw, 3rem);
+            font-size: clamp(1.5rem, 5vw, 3rem);
             font-weight: 200;
             color: rgba(184, 134, 11, 0.3);
-            margin-top: 0.5rem;
-            align-self: flex-start;
+            margin-top: 0.3rem;
+            flex-shrink: 0;
         }
 
-        /* Bottom tagline */
+        /* Tagline */
         .tagline {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+            font-size: clamp(0.75rem, 2vw, 1.1rem);
             font-weight: 300;
             font-style: italic;
             color: rgba(232, 224, 212, 0.35);
             letter-spacing: 0.15em;
             opacity: 0;
             animation: fadeUp 1.2s ease-out 1.8s forwards;
+            padding: 0 1rem;
         }
 
         @keyframes fadeUp {
@@ -238,6 +261,8 @@
             align-items: center;
             justify-content: center;
             animation: fadeIn 2s ease-out;
+            padding: 2rem;
+            text-align: center;
         }
 
         @keyframes fadeIn {
@@ -246,12 +271,12 @@
         }
 
         .celebration .brand-mark {
-            margin-bottom: 3rem;
+            margin-bottom: clamp(2rem, 5vh, 3rem);
             animation: fadeUp 1.5s ease-out 0.5s forwards;
         }
 
         .celebration .name {
-            font-size: clamp(3rem, 10vw, 8rem);
+            font-size: clamp(2.5rem, 12vw, 8rem);
             margin-bottom: 1rem;
             animation: fadeUp 1.5s ease-out 0.8s forwards;
         }
@@ -262,28 +287,30 @@
 
         .celebration .wish {
             font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-size: clamp(0.9rem, 3vw, 1.5rem);
             font-weight: 300;
             font-style: italic;
             color: rgba(232, 224, 212, 0.5);
             letter-spacing: 0.2em;
+            line-height: 1.6;
             opacity: 0;
             animation: fadeUp 1.5s ease-out 1.2s forwards;
+            max-width: 500px;
         }
 
         .celebration .year {
             font-family: 'Inter', sans-serif;
-            font-size: 0.6rem;
+            font-size: clamp(0.55rem, 1.5vw, 0.6rem);
             font-weight: 300;
             letter-spacing: 0.5em;
             text-transform: uppercase;
             color: rgba(184, 134, 11, 0.4);
-            margin-top: 3rem;
+            margin-top: clamp(2rem, 5vh, 3rem);
             opacity: 0;
             animation: fadeUp 1.5s ease-out 1.6s forwards;
         }
 
-        /* Gold dust particles */
+        /* Gold dust */
         .dust {
             position: fixed;
             width: 2px;
@@ -302,15 +329,40 @@
             100% { transform: translateY(100vh) translateX(20px); opacity: 0; }
         }
 
-        /* Bottom line */
-        .bottom-line {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent 0%, rgba(184, 134, 11, 0.15) 50%, transparent 100%);
-            z-index: 10;
+        /* Mobile landscape adjustments */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .brand-mark { margin-bottom: 1.5rem; }
+            .date { margin-bottom: 2rem; }
+            .countdown { margin-bottom: 2rem; }
+            .unit-value { font-size: clamp(2rem, 12vh, 4rem); }
+            .unit-label { margin-top: 0.3rem; }
+        }
+
+        /* Small phones */
+        @media (max-width: 360px) {
+            .countdown { gap: 0.8rem; }
+            .unit-value { font-size: 2rem; }
+            .unit-label { letter-spacing: 0.2em; font-size: 0.45rem; }
+            .unit-divider { font-size: 1.2rem; }
+        }
+
+        /* Large tablets */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .name { font-size: 8rem; }
+            .unit-value { font-size: 5rem; }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .brand-mark, .name, .date, .countdown, .tagline,
+            .celebration .brand-mark, .celebration .name,
+            .celebration .wish, .celebration .year {
+                animation: none;
+                opacity: 1;
+            }
+            .name::after { animation: none; opacity: 1; width: 60px; }
+            .orb { animation: none; opacity: 0.5; }
+            .dust { animation: none; opacity: 0.3; }
         }
     </style>
 <base target="_blank">
@@ -369,14 +421,15 @@
         // Gold dust
         function createDust() {
             const container = document.getElementById('dust-container');
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 25; i++) {
                 const dust = document.createElement('div');
                 dust.className = 'dust';
                 dust.style.left = Math.random() * 100 + '%';
                 dust.style.animationDuration = (Math.random() * 15 + 10) + 's';
                 dust.style.animationDelay = Math.random() * 20 + 's';
-                dust.style.width = (Math.random() * 2 + 1) + 'px';
-                dust.style.height = dust.style.width;
+                const size = Math.random() * 2 + 1;
+                dust.style.width = size + 'px';
+                dust.style.height = size + 'px';
                 container.appendChild(dust);
             }
         }
