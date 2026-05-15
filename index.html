@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown to Baba's Birthday</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Baba — May 16</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,178 +13,231 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #e8e0d4;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
             position: relative;
         }
 
-        /* Animated background particles */
-        .particles {
+        /* Cinematic background with subtle gradient */
+        .bg-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(139, 90, 43, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(184, 134, 11, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(139, 90, 43, 0.06) 0%, transparent 50%),
+                #0a0a0a;
+        }
+
+        /* Thin gold line accent at top */
+        .top-line {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(184, 134, 11, 0.4) 20%, rgba(184, 134, 11, 0.4) 80%, transparent 100%);
+            z-index: 10;
+        }
+
+        /* Ambient floating orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0;
+            animation: orbDrift 20s ease-in-out infinite;
             z-index: 0;
         }
 
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 215, 0, 0.3);
-            animation: float 15s infinite;
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: rgba(184, 134, 11, 0.06);
+            top: -10%;
+            left: 10%;
+            animation-delay: 0s;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: rgba(139, 90, 43, 0.05);
+            bottom: 10%;
+            right: 15%;
+            animation-delay: -7s;
         }
 
-        /* Main container */
-        .container {
+        .orb-3 {
+            width: 250px;
+            height: 250px;
+            background: rgba(184, 134, 11, 0.04);
+            top: 40%;
+            right: -5%;
+            animation-delay: -14s;
+        }
+
+        @keyframes orbDrift {
+            0%, 100% { opacity: 0; transform: translate(0, 0) scale(1); }
+            25% { opacity: 1; transform: translate(30px, -20px) scale(1.1); }
+            50% { opacity: 0.6; transform: translate(-20px, 30px) scale(0.9); }
+            75% { opacity: 1; transform: translate(40px, 10px) scale(1.05); }
+        }
+
+        /* Main content */
+        .content {
             position: relative;
-            z-index: 1;
+            z-index: 2;
             text-align: center;
-            padding: 2rem;
-            max-width: 1200px;
+            padding: 3rem;
+            max-width: 1000px;
             width: 100%;
         }
 
-        /* Header */
-        .header {
-            margin-bottom: 3rem;
-        }
-
-        .header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 8vw, 6rem);
-            font-weight: 900;
-            color: #ffd700;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.3);
-            letter-spacing: 0.1em;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { text-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.3); }
-            to { text-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 215, 0, 0.5), 0 0 80px rgba(255, 215, 0, 0.2); }
-        }
-
-        .header .subtitle {
-            font-size: clamp(1rem, 3vw, 1.5rem);
-            color: #e0e0e0;
-            margin-top: 0.5rem;
-            font-weight: 300;
-            letter-spacing: 0.2em;
+        /* Subtle brand mark */
+        .brand-mark {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 0.5em;
             text-transform: uppercase;
+            color: rgba(184, 134, 11, 0.5);
+            margin-bottom: 4rem;
+            opacity: 0;
+            animation: fadeUp 1.2s ease-out 0.3s forwards;
         }
 
-        /* Countdown container */
-        .countdown-wrapper {
-            display: flex;
-            justify-content: center;
-            gap: clamp(1rem, 3vw, 2.5rem);
-            flex-wrap: wrap;
-            margin: 3rem 0;
-        }
-
-        .time-unit {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 20px;
-            padding: clamp(1.5rem, 4vw, 3rem);
-            min-width: clamp(100px, 18vw, 180px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        /* The name */
+        .name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            color: #e8e0d4;
+            line-height: 1;
+            margin-bottom: 0.3rem;
+            opacity: 0;
+            animation: fadeUp 1.4s ease-out 0.6s forwards;
             position: relative;
-            overflow: hidden;
         }
 
-        .time-unit::before {
+        .name::after {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
-            transform: rotate(45deg);
-            transition: all 0.5s;
+            bottom: -0.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(184, 134, 11, 0.5), transparent);
             opacity: 0;
+            animation: lineReveal 1s ease-out 1.8s forwards;
         }
 
-        .time-unit:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2);
+        @keyframes lineReveal {
+            from { opacity: 0; width: 0; }
+            to { opacity: 1; width: 60px; }
         }
 
-        .time-unit:hover::before {
-            opacity: 1;
-            animation: shine 1s ease-out;
+        /* Date */
+        .date {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            font-weight: 300;
+            font-style: italic;
+            color: rgba(232, 224, 212, 0.5);
+            letter-spacing: 0.3em;
+            margin-bottom: 5rem;
+            opacity: 0;
+            animation: fadeUp 1.2s ease-out 1s forwards;
         }
 
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        /* Countdown */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: clamp(2rem, 5vw, 5rem);
+            margin-bottom: 5rem;
+            opacity: 0;
+            animation: fadeUp 1.2s ease-out 1.4s forwards;
         }
 
-        .time-value {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 7vw, 5rem);
-            font-weight: 900;
-            color: #ffd700;
+        .unit {
+            text-align: center;
+            min-width: clamp(60px, 12vw, 120px);
+        }
+
+        .unit-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 300;
+            color: #e8e0d4;
             line-height: 1;
             display: block;
+            font-variant-numeric: tabular-nums;
         }
 
-        .time-label {
-            font-size: clamp(0.7rem, 2vw, 1rem);
-            color: #a0a0a0;
+        .unit-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 300;
+            letter-spacing: 0.4em;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
-            margin-top: 0.5rem;
+            color: rgba(184, 134, 11, 0.6);
+            margin-top: 0.8rem;
             display: block;
         }
 
-        /* Separator */
-        .separator {
-            font-size: clamp(2rem, 5vw, 4rem);
-            color: #ffd700;
-            align-self: center;
-            opacity: 0.5;
-            animation: pulse 1s ease-in-out infinite;
+        .unit-divider {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 200;
+            color: rgba(184, 134, 11, 0.3);
+            margin-top: 0.5rem;
+            align-self: flex-start;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+        /* Bottom tagline */
+        .tagline {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+            font-weight: 300;
+            font-style: italic;
+            color: rgba(232, 224, 212, 0.35);
+            letter-spacing: 0.15em;
+            opacity: 0;
+            animation: fadeUp 1.2s ease-out 1.8s forwards;
         }
 
-        /* Birthday message */
-        .birthday-message {
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Birthday celebration */
+        .celebration {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            inset: 0;
             z-index: 100;
+            background: #0a0a0a;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            animation: fadeIn 1s ease-out;
+            animation: fadeIn 2s ease-out;
         }
 
         @keyframes fadeIn {
@@ -191,221 +245,178 @@
             to { opacity: 1; }
         }
 
-        .birthday-message h2 {
-            font-family: 'Playfair Display', serif;
+        .celebration .brand-mark {
+            margin-bottom: 3rem;
+            animation: fadeUp 1.5s ease-out 0.5s forwards;
+        }
+
+        .celebration .name {
             font-size: clamp(3rem, 10vw, 8rem);
-            font-weight: 900;
-            color: #ffd700;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
-            animation: bounceIn 1s ease-out;
+            margin-bottom: 1rem;
+            animation: fadeUp 1.5s ease-out 0.8s forwards;
         }
 
-        @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); opacity: 1; }
+        .celebration .name::after {
+            display: none;
         }
 
-        .birthday-message p {
-            font-size: clamp(1.2rem, 3vw, 2rem);
-            color: #e0e0e0;
-            margin-top: 1rem;
+        .celebration .wish {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
             font-weight: 300;
+            font-style: italic;
+            color: rgba(232, 224, 212, 0.5);
+            letter-spacing: 0.2em;
+            opacity: 0;
+            animation: fadeUp 1.5s ease-out 1.2s forwards;
         }
 
-        /* Confetti canvas */
-        #confetti-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 101;
-        }
-
-        /* Footer */
-        .footer {
+        .celebration .year {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 300;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            color: rgba(184, 134, 11, 0.4);
             margin-top: 3rem;
-            color: #666;
-            font-size: 0.9rem;
-            letter-spacing: 0.1em;
+            opacity: 0;
+            animation: fadeUp 1.5s ease-out 1.6s forwards;
         }
 
-        /* Responsive */
-        @media (max-width: 600px) {
-            .countdown-wrapper {
-                gap: 0.8rem;
-            }
-            .time-unit {
-                padding: 1rem;
-                min-width: 80px;
-            }
+        /* Gold dust particles */
+        .dust {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: rgba(184, 134, 11, 0.4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            animation: dustFall linear infinite;
+        }
+
+        @keyframes dustFall {
+            0% { transform: translateY(-10px) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh) translateX(20px); opacity: 0; }
+        }
+
+        /* Bottom line */
+        .bottom-line {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(184, 134, 11, 0.15) 50%, transparent 100%);
+            z-index: 10;
         }
     </style>
+<base target="_blank">
 </head>
 <body>
-    <!-- Background particles -->
-    <div class="particles" id="particles"></div>
+    <div class="bg-layer"></div>
+    <div class="top-line"></div>
+    <div class="bottom-line"></div>
 
-    <!-- Main countdown -->
-    <div class="container" id="countdown-container">
-        <div class="header">
-            <h1>BABA'S BIRTHDAY</h1>
-            <p class="subtitle">May 16, 2026</p>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div id="dust-container"></div>
+
+    <!-- Countdown view -->
+    <div class="content" id="countdown-view">
+        <div class="brand-mark">An Occasion</div>
+        <div class="name">Baba</div>
+        <div class="date">May the Sixteenth</div>
+
+        <div class="countdown">
+            <div class="unit">
+                <span class="unit-value" id="days">00</span>
+                <span class="unit-label">Days</span>
+            </div>
+            <div class="unit-divider">·</div>
+            <div class="unit">
+                <span class="unit-value" id="hours">00</span>
+                <span class="unit-label">Hours</span>
+            </div>
+            <div class="unit-divider">·</div>
+            <div class="unit">
+                <span class="unit-value" id="minutes">00</span>
+                <span class="unit-label">Minutes</span>
+            </div>
+            <div class="unit-divider">·</div>
+            <div class="unit">
+                <span class="unit-value" id="seconds">00</span>
+                <span class="unit-label">Seconds</span>
+            </div>
         </div>
 
-        <div class="countdown-wrapper">
-            <div class="time-unit">
-                <span class="time-value" id="days">00</span>
-                <span class="time-label">Days</span>
-            </div>
-            <div class="separator">:</div>
-            <div class="time-unit">
-                <span class="time-value" id="hours">00</span>
-                <span class="time-label">Hours</span>
-            </div>
-            <div class="separator">:</div>
-            <div class="time-unit">
-                <span class="time-value" id="minutes">00</span>
-                <span class="time-label">Minutes</span>
-            </div>
-            <div class="separator">:</div>
-            <div class="time-unit">
-                <span class="time-value" id="seconds">00</span>
-                <span class="time-label">Seconds</span>
-            </div>
-        </div>
-
-        <div class="footer">
-            <p>The countdown is on...</p>
-        </div>
+        <div class="tagline">Awaiting the moment</div>
     </div>
 
-    <!-- Birthday celebration overlay -->
-    <div class="birthday-message" id="birthday-message">
-        <h2>Happy Birthday Baba!</h2>
-        <p>Wishing you a wonderful year ahead!</p>
+    <!-- Celebration view -->
+    <div class="celebration" id="celebration-view">
+        <div class="brand-mark">An Occasion</div>
+        <div class="name">Happy Birthday</div>
+        <div class="wish">To one who deserves nothing less than everything</div>
+        <div class="year">MMXXVI</div>
     </div>
-
-    <canvas id="confetti-canvas"></canvas>
 
     <script>
-        // Create floating particles
-        function createParticles() {
-            const container = document.getElementById('particles');
-            for (let i = 0; i < 50; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                const size = Math.random() * 6 + 2;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                container.appendChild(particle);
+        // Gold dust
+        function createDust() {
+            const container = document.getElementById('dust-container');
+            for (let i = 0; i < 30; i++) {
+                const dust = document.createElement('div');
+                dust.className = 'dust';
+                dust.style.left = Math.random() * 100 + '%';
+                dust.style.animationDuration = (Math.random() * 15 + 10) + 's';
+                dust.style.animationDelay = Math.random() * 20 + 's';
+                dust.style.width = (Math.random() * 2 + 1) + 'px';
+                dust.style.height = dust.style.width;
+                container.appendChild(dust);
             }
         }
 
-        // Countdown logic
+        // Countdown
         function updateCountdown() {
             const now = new Date();
             const currentYear = now.getFullYear();
-            let targetDate = new Date(currentYear, 4, 16, 0, 0, 0); // May 16 (month is 0-indexed)
+            let target = new Date(currentYear, 4, 16, 0, 0, 0);
 
-            // If May 16 has passed this year, target next year
-            if (now > targetDate) {
-                targetDate = new Date(currentYear + 1, 4, 16, 0, 0, 0);
+            if (now > target) {
+                target = new Date(currentYear + 1, 4, 16, 0, 0, 0);
             }
 
-            const diff = targetDate - now;
+            const diff = target - now;
 
             if (diff <= 0) {
-                // It's Baba's birthday!
-                showBirthday();
+                showCelebration();
                 return;
             }
 
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            const d = Math.floor(diff / 86400000);
+            const h = Math.floor((diff % 86400000) / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
 
-            document.getElementById('days').textContent = String(days).padStart(2, '0');
-            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            document.getElementById('days').textContent = String(d).padStart(2, '0');
+            document.getElementById('hours').textContent = String(h).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(m).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(s).padStart(2, '0');
         }
 
-        // Show birthday celebration
-        function showBirthday() {
-            document.getElementById('countdown-container').style.display = 'none';
-            document.getElementById('birthday-message').style.display = 'flex';
-            startConfetti();
+        function showCelebration() {
+            document.getElementById('countdown-view').style.display = 'none';
+            document.getElementById('celebration-view').style.display = 'flex';
         }
 
-        // Confetti effect
-        function startConfetti() {
-            const canvas = document.getElementById('confetti-canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            const colors = ['#ffd700', '#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#f0932b', '#eb4d4b', '#6c5ce7'];
-            const confetti = [];
-
-            for (let i = 0; i < 200; i++) {
-                confetti.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height - canvas.height,
-                    size: Math.random() * 10 + 5,
-                    color: colors[Math.floor(Math.random() * colors.length)],
-                    speedY: Math.random() * 3 + 2,
-                    speedX: Math.random() * 2 - 1,
-                    rotation: Math.random() * 360,
-                    rotationSpeed: Math.random() * 5 - 2.5
-                });
-            }
-
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                confetti.forEach(p => {
-                    ctx.save();
-                    ctx.translate(p.x, p.y);
-                    ctx.rotate(p.rotation * Math.PI / 180);
-                    ctx.fillStyle = p.color;
-                    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-                    ctx.restore();
-
-                    p.y += p.speedY;
-                    p.x += p.speedX;
-                    p.rotation += p.rotationSpeed;
-
-                    if (p.y > canvas.height) {
-                        p.y = -10;
-                        p.x = Math.random() * canvas.width;
-                    }
-                });
-
-                requestAnimationFrame(animate);
-            }
-
-            animate();
-        }
-
-        // Initialize
-        createParticles();
+        createDust();
         updateCountdown();
         setInterval(updateCountdown, 1000);
-
-        // Resize handler
-        window.addEventListener('resize', () => {
-            const canvas = document.getElementById('confetti-canvas');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
     </script>
 </body>
 </html>
